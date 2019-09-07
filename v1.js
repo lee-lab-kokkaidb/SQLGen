@@ -54,38 +54,63 @@ function generate(){
     
     //議会選択
     //国会
+    var kokkaiOn = false;
     var dietcheck = document.forms.Kokkai;
     var dchecked;
     if ((kdietform.kokkai[0].checked) && (!kdietform.kokkai[1].checked) && (!kdietform.kokkai[2].checked)) {
         dchecked = "'01'";
+        kokkaiOn = true;
     } else if ((kdietform.kokkai[0].checked) && (kdietform.kokkai[1].checked) && (!kdietform.kokkai[2].checked)) {
         dchecked = "'01','02'";
+        kokkaiOn = true;
     } else if ((kdietform.kokkai[0].checked) && (kdietform.kokkai[1].checked) && (kdietform.kokkai[2].checked)) {
         dchecked = "'01','02','03'";
+        kokkaiOn = true;
     } else if ((!kdietform.kokkai[0].checked) && (kdietform.kokkai[1].checked) && (!kdietform.kokkai[2].checked)) {
         dchecked = "'02'";
+        kokkaiOn = true;
     } else if ((!kdietform.kokkai[0].checked) && (kdietform.kokkai[1].checked) && (kdietform.kokkai[2].checked)) {
-        dchecked = "'02','03'";
+        dchecked = "'02','03'";]
+        kokkaiOn = true;
     } else if ((!kdietform.kokkai[0].checked) && (!kdietform.kokkai[1].checked) && (kdietform.kokkai[2].checked)) {
         dchecked = "'03'";
+        kokkaiOn = true;
     } else if ((kdietform.kokkai[0].checked) && (!kdietform.kokkai[1].checked) && (kdietform.kokkai[2].checked)) {
         dchecked = "'01','03'";
+        kokkaiOn = true;
     }
 
     //地方議会
+    var sysOn = false;
     var syscheck = document.forms.Chihou;
     var schecked = "";
     for (var i = 2; i <= 47; i++) {
         if (syscheck.chihou[i-1].checked) {
-            schecked += "'" + syscheck.chihou[i-1].value; + "',"
+            schecked += "'" + syscheck.chihou[i-1].value; + "',";
+            sysOn = true;
         }
     }
     if (syscheck.chihou[48 - 1].checked) {
-        schecked += "'" + syscheck.chihou[48 - 1].value; + "'"
+        schecked += "'" + syscheck.chihou[48 - 1].value; + "'";
+        sysOn = true;
     }
 
     //会議種類
-    
+    var kaigiOn = false;
+    var kaicheck = document.forms.Kaigi;
+    var kchecked = "";
+    for (var i = 1; i <= 5; i++) {
+        if (kaicheck.kaigi[i-1].checked) {
+            kchecked += "'" + kaicheck.kchecked[i-1].value; + "',";
+            kaigiOn = true;
+        }
+
+    }
+    if (kaicheck.kaigi[5 - 1].checked) {
+        kchecked += "'" + kaicheck.kaigi[5 - 1].value; + "'";
+        kaigiOn = true;
+    }
+
     //検索語指定
     var w1 = document.forms.word1;
     var w2 = document.forms.word2;
