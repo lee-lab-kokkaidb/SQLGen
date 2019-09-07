@@ -57,25 +57,25 @@ function generate(){
     var kokkaiOn = false;
     var dietcheck = document.forms.Kokkai;
     var dchecked;
-    if ((kdietform.kokkai[0].checked) && (!kdietform.kokkai[1].checked) && (!kdietform.kokkai[2].checked)) {
+    if ((dietcheck.kokkai[0].checked) && (!dietcheck.kokkai[1].checked) && (!dietcheck.kokkai[2].checked)) {
         dchecked = "'01'";
         kokkaiOn = true;
-    } else if ((kdietform.kokkai[0].checked) && (kdietform.kokkai[1].checked) && (!kdietform.kokkai[2].checked)) {
+    } else if ((dietcheck.kokkai[0].checked) && (dietcheck.kokkai[1].checked) && (!dietcheck.kokkai[2].checked)) {
         dchecked = "'01','02'";
         kokkaiOn = true;
-    } else if ((kdietform.kokkai[0].checked) && (kdietform.kokkai[1].checked) && (kdietform.kokkai[2].checked)) {
+    } else if ((dietcheck.kokkai[0].checked) && (dietcheck.kokkai[1].checked) && (dietcheck.kokkai[2].checked)) {
         dchecked = "'01','02','03'";
         kokkaiOn = true;
-    } else if ((!kdietform.kokkai[0].checked) && (kdietform.kokkai[1].checked) && (!kdietform.kokkai[2].checked)) {
+    } else if ((!dietcheck.kokkai[0].checked) && (dietcheck.kokkai[1].checked) && (!dietcheck.kokkai[2].checked)) {
         dchecked = "'02'";
         kokkaiOn = true;
-    } else if ((!kdietform.kokkai[0].checked) && (kdietform.kokkai[1].checked) && (kdietform.kokkai[2].checked)) {
-        dchecked = "'02','03'";]
+    } else if ((!dietcheck.kokkai[0].checked) && (dietcheck.kokkai[1].checked) && (dietcheck.kokkai[2].checked)) {
+        dchecked = "'02','03'";
         kokkaiOn = true;
-    } else if ((!kdietform.kokkai[0].checked) && (!kdietform.kokkai[1].checked) && (kdietform.kokkai[2].checked)) {
+    } else if ((!dietcheck.kokkai[0].checked) && (!dietcheck.kokkai[1].checked) && (dietcheck.kokkai[2].checked)) {
         dchecked = "'03'";
         kokkaiOn = true;
-    } else if ((kdietform.kokkai[0].checked) && (!kdietform.kokkai[1].checked) && (kdietform.kokkai[2].checked)) {
+    } else if ((dietcheck.kokkai[0].checked) && (!dietcheck.kokkai[1].checked) && (dietcheck.kokkai[2].checked)) {
         dchecked = "'01','03'";
         kokkaiOn = true;
     }
@@ -85,13 +85,13 @@ function generate(){
     var syscheck = document.forms.Chihou;
     var schecked = "";
     for (var i = 2; i <= 47; i++) {
-        if (syscheck.chihou[i-1].checked) {
-            schecked += "'" + syscheck.chihou[i-1].value; + "',";
+        if (syscheck.chihou[i-2].checked) {
+            schecked += "'" + syscheck.chihou[i-2].value; + "',";
             sysOn = true;
         }
     }
-    if (syscheck.chihou[48 - 1].checked) {
-        schecked += "'" + syscheck.chihou[48 - 1].value; + "'";
+    if (syscheck.chihou[48 - 2].checked) {
+        schecked += "'" + syscheck.chihou[48 - 2].value; + "'";
         sysOn = true;
     }
 
@@ -112,15 +112,135 @@ function generate(){
     }
 
     //検索語指定
+    //1つめ
     var w1 = document.forms.word1;
+    var w1exists;
+    var w1str = false;
+    if (w1.sword.value) {
+        w1exists = true;
+        var w1mode = w1.mode.value;
+        if (w1mode == "talker_name"){
+            w1str = "( talker_name like '%" + w1.sword.value + "%' or talker_jname like'%" + w1.sword.value + "%')";
+        } else {
+            w1str = w1.mode.value + " like '%" + w1.sword.value+"%'";
+        }
+    }
+
+    //2つめ
     var w2 = document.forms.word2;
-    var w3 = document.forms.word3;
-    var w4 = document.forms.word4;
-    var w5 = document.forms.word5;
+    var w2exists;
+    var w2str = false;
+    if (w2.sword.value) {
+        w2exists = true;
+        var w2mode = w2.mode.value;
+        if (w2mode == "talker_name"){
+            w2str = "( talker_name like '%" + w2.sword.value + "%' or talker_jname like'%" + w2.sword.value + "%')";
+        } else {
+            w2str = w2.mode.value + " like '%" + w2.sword.value+"%'";
+        }
+    }
     
 
-    var sqlout = document.getElementById("sql");
-    sqlout.innerHTML = "<p>SELECT b.conf_id, b.conf_item_id, b.conf_dt<br>"
-        + "FROM t_conf as a inner join t_conf_item as b on a.conf_id=b.conf_id and a.conf_dt = b.conf_dt inner join t_talker as c on b.talker_id=c.talker_id and a.conf_id = c.conf_id"
-        + "WHERE a.conf_dt BETWEEN '" + start + "' and '" + end + "' AND a.diet_tp IN ('01') AND (" + w1.mode.value + " like '%" + w1.sword.value+"%' " + w1.AON.value + " (talker_name like'%竹島%' or talker_jname like'%竹島%')) ORDER BY b.conf_dt ASC;";
+    //3つめ
+    var w3 = document.forms.word3;
+    var w3exists;
+    var w3str = false;
+    if (w3.sword.value) {
+        w3exists = true;
+        var w3mode = w3.mode.value;
+        if (w3mode == "talker_name"){
+            w3str = "( talker_name like '%" + w3.sword.value + "%' or talker_jname like'%" + w3.sword.value + "%')";
+        } else {
+            w3str = w3.mode.value + " like '%" + w3.sword.value+"%'";
+        }
+    }
+    
+
+    //4つめ
+    var w4 = document.forms.word4;
+    var w4exists;
+    var w4str = false;
+    if (w4.sword.value) {
+        w4exists = true;
+        var w4mode = w4.mode.value;
+        if (w4mode == "talker_name"){
+            w4str = "'( talker_name like '%" + w4.sword.value + "%' or talker_jname like'%" + w4.sword.value + "%')";
+        } else {
+            w4str = w4.mode.value + " like '%" + w4.sword.value+"%'";
+        }
+    }
+    
+
+    //5つめ
+    var w5 = document.forms.word5;
+    var w5exists;
+    var w5str = false;
+    if (w5.sword.value) {
+        w5exists = true;
+        var w5mode = w5.mode.value;
+        if (w5mode == "talker_name"){
+            w5str = "(( talker_name like '%" + w5.sword.value + "%' or talker_jname like'%" + w5.sword.value + "%')";
+        } else {
+            w5str = w5.mode.value + " like '%" + w5.sword.value+"%'";
+        }
+    }
+    
+    //文を合成
+    //最初のところ
+    sqlout = "SELECT b.conf_id, b.conf_item_id, b.conf_dt<br>"
+    + "FROM t_conf as a inner join t_conf_item as b on a.conf_id=b.conf_id and a.conf_dt = b.conf_dt inner join t_talker as c on b.talker_id=c.talker_id and a.conf_id = c.conf_id<br>"
+    + "WHERE a.conf_dt BETWEEN ";
+
+    //期間
+    sqlout += "'" + start + "' and '" + end + "'";
+
+    //議会選択
+    //国会
+    if (kokkaiOn){
+        sqlout += " AND a.diet_tp IN (" + dchecked + ") ";
+    }
+    //地方議会
+    if (sysOn) {
+        sqlout += " AND a.sys_tp IN (" + schecked + ")";
+    }
+
+    //会議種類
+    if (kaigiOn) {
+        sqlout += " AND a.conf_tp IN (" + kchecked + ")";
+    }
+
+    //検索語
+    if (w1exists && w2exists) {
+        sqlout += " AND ( " + w1str + " " + w1.AON.value + " "; 
+    } else if (w1exists && !w2exists) {
+        sqlout += " AND ( " + w1str + ")"; 
+    }
+
+    if (w2exists && w3exists) {
+        sqlout += w2str + " " + w2.AON.value + " "; 
+    } else if (w2exists && !w3exists) {
+        sqlout += w2str + ")"; 
+    }
+
+    if (w3exists && w4exists) {
+        sqlout += w3str + " " + w3.AON.value + " "; 
+    } else if (w3exists && !w4exists) {
+        sqlout += w3str + ")"; 
+    }
+
+    if (w4exists && w5exists) {
+        sqlout += w4str + " " + w4.AON.value + " "; 
+    } else if (w4exists && !w5exists) {
+        sqlout += w4str + ")"; 
+    }
+
+    if (w5exists) {
+        sqlout += w5str + ")"; 
+    }
+    
+    sqlout +=  " ORDER BY b.conf_dt ASC;"
+
+
+    var sqloutarea = document.getElementById("sql");
+    sqloutarea.innerHTML = sqlout;
 }
