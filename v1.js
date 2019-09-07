@@ -61,6 +61,15 @@ function generate(){
     //会議種類
     
     //検索語指定
-    var sqlout = getElementById("sql");
-    sqlout.innerHTML =start + "-" + end
+    var w1 = document.forms.word1;
+    var w2 = document.forms.word2;
+    var w3 = document.forms.word3;
+    var w4 = document.forms.word4;
+    var w5 = document.forms.word5;
+    
+
+    var sqlout = document.getElementById("sql");
+    sqlout.innerHTML = "<p>SELECT b.conf_id, b.conf_item_id, b.conf_dt<br>"
+        + "FROM t_conf as a inner join t_conf_item as b on a.conf_id=b.conf_id and a.conf_dt = b.conf_dt inner join t_talker as c on b.talker_id=c.talker_id and a.conf_id = c.conf_id"
+        + "WHERE a.conf_dt BETWEEN '" + start + "' and '" + end + "' AND a.diet_tp IN ('01') AND (" + w1.mode.value + " like '%" + w1.sword.value+"%' " + w1.AON.value + " (talker_name like'%竹島%' or talker_jname like'%竹島%')) ORDER BY b.conf_dt ASC;";
 }
