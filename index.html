@@ -1,0 +1,186 @@
+<!-- valueのところは仕様によって変更の必要あり -->
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="v1.js"></script>
+		<title>国会議事録DB SQL生成</title>
+	</head>
+	<body>
+		<h1>国会議事録DB SQL生成</h1>
+		
+		<h2>検索期間</h2>
+		<form name="date">
+			<b>開始:</b>
+			<input type="text" name="start" size="10" maxlength="8">
+			<br>
+			<b>終了:</b>
+			<input type="text" name="end" size="10" maxlength="8">
+			</form>
+		<br><br>
+		
+		<h2>議会</h2>
+		<form name="Kokkai">
+			<label>
+				<input type="checkbox" name="KokkaiAll" onClick="KokkaiAllChecked();" />国会すべて
+			</label>
+			<p>　
+				<label>
+					<input type="checkbox" name="kokkai" value="01" onClick="KokkaiDisChecked();" />衆議院
+				</label>
+				<label>
+					<input type="checkbox" name="kokkai" value="02" onClick="KokkaiDisChecked();" />参議院
+				</label>
+				<label>
+					<input type="checkbox" name="kokkai" value="03" onClick="KokkaiDisChecked();" />参議院
+				</label>
+			</p>
+		</form>
+		<br>
+		<form name="Chihou">
+			<label>
+				<input type="checkbox" name="ChihouAll" onClick="ChihouAllChecked();" />地方議会すべて
+			</label>
+			<p>　
+				<label><input type="checkbox" name="chihou" value="北海道" onClick="ChihouDisChecked();" />北海道</label>
+				<br>　
+				<label><input type="checkbox" name="chihou" value="青森" onClick="ChihouDisChecked();" />青森</label>
+				<label><input type="checkbox" name="chihou" value="岩手" onClick="ChihouDisChecked();" />岩手</label>
+				<label><input type="checkbox" name="chihou" value="宮城" onClick="ChihouDisChecked();" />宮城</label>
+				<label><input type="checkbox" name="chihou" value="秋田" onClick="ChihouDisChecked();" />秋田</label>
+				<label><input type="checkbox" name="chihou" value="山形" onClick="ChihouDisChecked();" />山形</label>
+				<label><input type="checkbox" name="chihou" value="福島" onClick="ChihouDisChecked();" />福島</label>
+				<br>　
+				<label><input type="checkbox" name="chihou" value="茨城" onClick="ChihouDisChecked();" />茨城</label>
+				<label><input type="checkbox" name="chihou" value="栃木" onClick="ChihouDisChecked();" />栃木</label>
+				<label><input type="checkbox" name="chihou" value="群馬" onClick="ChihouDisChecked();" />群馬</label>
+				<label><input type="checkbox" name="chihou" value="埼玉" onClick="ChihouDisChecked();" />埼玉</label>
+				<label><input type="checkbox" name="chihou" value="千葉" onClick="ChihouDisChecked();" />千葉</label>
+				<label><input type="checkbox" name="chihou" value="東京" onClick="ChihouDisChecked();" />東京</label>
+				<label><input type="checkbox" name="chihou" value="神奈川" onClick="ChihouDisChecked();" />神奈川</label>
+				<br>　
+				<label><input type="checkbox" name="chihou" value="新潟" onClick="ChihouDisChecked();" />新潟</label>
+				<label><input type="checkbox" name="chihou" value="富山" onClick="ChihouDisChecked();" />富山</label>
+				<label><input type="checkbox" name="chihou" value="石川" onClick="ChihouDisChecked();" />石川</label>
+				<label><input type="checkbox" name="chihou" value="福井" onClick="ChihouDisChecked();" />福井</label>
+				<label><input type="checkbox" name="chihou" value="山梨" onClick="ChihouDisChecked();" />山梨</label>
+				<label><input type="checkbox" name="chihou" value="長野" onClick="ChihouDisChecked();" />長野</label>
+				<label><input type="checkbox" name="chihou" value="岐阜" onClick="ChihouDisChecked();" />岐阜</label>
+				<label><input type="checkbox" name="chihou" value="静岡" onClick="ChihouDisChecked();" />静岡</label>
+				<label><input type="checkbox" name="chihou" value="愛知" onClick="ChihouDisChecked();" />愛知</label>
+				<br>　
+				<label><input type="checkbox" name="chihou" value="三重" onClick="ChihouDisChecked();" />三重</label>
+				<label><input type="checkbox" name="chihou" value="滋賀" onClick="ChihouDisChecked();" />滋賀</label>
+				<label><input type="checkbox" name="chihou" value="京都" onClick="ChihouDisChecked();" />京都</label>
+				<label><input type="checkbox" name="chihou" value="大阪" onClick="ChihouDisChecked();" />大阪</label>
+				<label><input type="checkbox" name="chihou" value="兵庫" onClick="ChihouDisChecked();" />兵庫</label>
+				<label><input type="checkbox" name="chihou" value="奈良" onClick="ChihouDisChecked();" />奈良</label>
+				<label><input type="checkbox" name="chihou" value="和歌山" onClick="ChihouDisChecked();" />和歌山</label>
+				<br>　
+				<label><input type="checkbox" name="chihou" value="鳥取" onClick="ChihouDisChecked();" />鳥取</label>
+				<label><input type="checkbox" name="chihou" value="島根" onClick="ChihouDisChecked();" />島根</label>
+				<label><input type="checkbox" name="chihou" value="岡山" onClick="ChihouDisChecked();" />岡山</label>
+				<label><input type="checkbox" name="chihou" value="広島" onClick="ChihouDisChecked();" />広島</label>
+				<label><input type="checkbox" name="chihou" value="山口" onClick="ChihouDisChecked();" />山口</label>
+				<br>　
+				<label><input type="checkbox" name="chihou" value="徳島" onClick="ChihouDisChecked();" />徳島</label>
+				<label><input type="checkbox" name="chihou" value="香川" onClick="ChihouDisChecked();" />香川</label>
+				<label><input type="checkbox" name="chihou" value="愛媛" onClick="ChihouDisChecked();" />愛媛</label>
+				<label><input type="checkbox" name="chihou" value="高知" onClick="ChihouDisChecked();" />高知</label>
+				<br>　
+				<label><input type="checkbox" name="chihou" value="福岡" onClick="ChihouDisChecked();" />福岡</label>
+				<label><input type="checkbox" name="chihou" value="佐賀" onClick="ChihouDisChecked();" />佐賀</label>
+				<label><input type="checkbox" name="chihou" value="長崎" onClick="ChihouDisChecked();" />長崎</label>
+				<label><input type="checkbox" name="chihou" value="熊本" onClick="ChihouDisChecked();" />熊本</label>
+				<label><input type="checkbox" name="chihou" value="大分" onClick="ChihouDisChecked();" />大分</label>
+				<label><input type="checkbox" name="chihou" value="宮崎" onClick="ChihouDisChecked();" />宮崎</label>
+				<label><input type="checkbox" name="chihou" value="鹿児島" onClick="ChihouDisChecked();" />鹿児島</label>
+				<label><input type="checkbox" name="chihou" value="沖縄" onClick="ChihouDisChecked();" />沖縄</label>
+			</p>
+		</form>
+		
+		<h2>会議種類</h2>
+		<form name="会議種類">
+			国会:
+			<label><input type="checkbox" name="Kokkaikaigi" value="本会議" />本会議</label>
+			<label><input type="checkbox" name="Kokkaikaigi" value="委員会" />委員会</label>
+			<br>
+			地方会議:
+			<label><input type="checkbox" name="Chihoukaigi" value="定例会" />定例会</label>
+			<label><input type="checkbox" name="Chihoukaigi" value="臨時会" />臨時会</label>
+			<label><input type="checkbox" name="Chihoukaigi" value="その他" />その他</label>
+		</form>
+			
+		<h2>検索語指定</h2>
+		※A「AND」B→AかつB A「OR」B→AまたはB A「NOT」B→AのうちBは含まない<br><br>
+		<form name="word1">
+			<select name="mode">
+				<option value="content" selected>発言内容</option>
+				<option value="talker_name">発言者</option>
+				<option value="政党">政党</option>
+				<option value="肩書">肩書</option>
+				<option value="会議情報">会議情報</option>
+				<option value="会議名">会議名</option>
+			</select>
+			<input type="text" name="sword" size="30" maxlength="30">
+			<label><input type="radio" name="AON" value="AND">AND</label>
+			<label><input type="radio" name="AON" value="OR">OR</label>
+			<label><input type="radio" name="AON" value="NOT">NOT</label>
+		</form>
+		<form name="word2">
+			<select name="mode">
+				<option value="content" selected>発言内容</option>
+				<option value="talker_name">発言者</option>
+				<option value="政党">政党</option>
+				<option value="肩書">肩書</option>
+				<option value="会議情報">会議情報</option>
+				<option value="会議名">会議名</option>
+			</select>
+			<input type="text" name="sword" size="30" maxlength="30">
+			<label><input type="radio" name="AON" value="AND">AND</label>
+			<label><input type="radio" name="AON" value="OR">OR</label>
+			<label><input type="radio" name="AON" value="NOT">NOT</label>
+		</form>
+		<form name="word3">
+			<select name="mode">
+				<option value="content" selected>発言内容</option>
+				<option value="talker_name">発言者</option>
+				<option value="政党">政党</option>
+				<option value="肩書">肩書</option>
+				<option value="会議情報">会議情報</option>
+				<option value="会議名">会議名</option>
+			</select>
+			<input type="text" name="sword" size="30" maxlength="30">
+			<label><input type="radio" name="AON" value="AND">AND</label>
+			<label><input type="radio" name="AON" value="OR">OR</label>
+			<label><input type="radio" name="AON" value="NOT">NOT</label>
+		</form>
+		<form name="word4">
+			<select name="mode">
+				<option value="content" selected>発言内容</option>
+				<option value="talker_name">発言者</option>
+				<option value="政党">政党</option>
+				<option value="肩書">肩書</option>
+				<option value="会議情報">会議情報</option>
+				<option value="会議名">会議名</option>
+			</select>
+			<input type="text" name="sword" size="30" maxlength="30">
+			<label><input type="radio" name="AON" value="AND">AND</label>
+			<label><input type="radio" name="AON" value="OR">OR</label>
+			<label><input type="radio" name="AON" value="NOT">NOT</label>
+		</form>
+		<form name="word5">
+			<select name="mode">
+				<option value="content" selected>発言内容</option>
+				<option value="talker_name">発言者</option>
+				<option value="政党">政党</option>
+				<option value="肩書">肩書</option>
+				<option value="会議情報">会議情報</option>
+				<option value="会議名">会議名</option>
+			</select>
+			<input type="text" name="sword" size="30" maxlength="30">
+		</form>
+		
+		<input type="submit" value="生成" onClick="generate();">
+	</body>
+</html>
