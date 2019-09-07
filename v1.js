@@ -54,10 +54,36 @@ function generate(){
     
     //議会選択
     //国会
-    var kdietform = document.forms.Kokkai;
-    var kokkaigikaimei;
+    var dietcheck = document.forms.Kokkai;
+    var dchecked;
+    if ((kdietform.kokkai[0].checked) && (!kdietform.kokkai[1].checked) && (!kdietform.kokkai[2].checked)) {
+        dchecked = "'01'";
+    } else if ((kdietform.kokkai[0].checked) && (kdietform.kokkai[1].checked) && (!kdietform.kokkai[2].checked)) {
+        dchecked = "'01','02'";
+    } else if ((kdietform.kokkai[0].checked) && (kdietform.kokkai[1].checked) && (kdietform.kokkai[2].checked)) {
+        dchecked = "'01','02','03'";
+    } else if ((!kdietform.kokkai[0].checked) && (kdietform.kokkai[1].checked) && (!kdietform.kokkai[2].checked)) {
+        dchecked = "'02'";
+    } else if ((!kdietform.kokkai[0].checked) && (kdietform.kokkai[1].checked) && (kdietform.kokkai[2].checked)) {
+        dchecked = "'02','03'";
+    } else if ((!kdietform.kokkai[0].checked) && (!kdietform.kokkai[1].checked) && (kdietform.kokkai[2].checked)) {
+        dchecked = "'03'";
+    } else if ((kdietform.kokkai[0].checked) && (!kdietform.kokkai[1].checked) && (kdietform.kokkai[2].checked)) {
+        dchecked = "'01','03'";
+    }
+
     //地方議会
-    
+    var syscheck = document.forms.Chihou;
+    var schecked = "";
+    for (var i = 2; i <= 47; i++) {
+        if (syscheck.chihou[i-1].checked) {
+            schecked += "'" + syscheck.chihou[i-1].value; + "',"
+        }
+    }
+    if (syscheck.chihou[48 - 1].checked) {
+        schecked += "'" + syscheck.chihou[48 - 1].value; + "'"
+    }
+
     //会議種類
     
     //検索語指定
