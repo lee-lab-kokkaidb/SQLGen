@@ -84,15 +84,14 @@ function generate(){
     var sysOn = false;
     var syscheck = document.forms.Chihou;
     var schecked = "";
-    for (var i = 2; i <= 47; i++) {
+    for (var i = 2; i <= 48; i++) {
         if (syscheck.chihou[i-2].checked) {
-            schecked += "'" + syscheck.chihou[i-2].value; + "',";
+            if (sysOn == true){
+                schecked +=",";
+            }
+            schecked += "'" + syscheck.chihou[i-2].value + "'";
             sysOn = true;
         }
-    }
-    if (syscheck.chihou[48 - 2].checked) {
-        schecked += "'" + syscheck.chihou[48 - 2].value; + "'";
-        sysOn = true;
     }
 
     //会議種類
@@ -100,15 +99,15 @@ function generate(){
     var kaicheck = document.forms.Kaigi;
     var kchecked = "";
     for (var i = 1; i <= 5; i++) {
-        if (kaicheck.kaigi[i-1].checked) {
-            kchecked += "'" + kaicheck.kchecked[i-1].value; + "',";
+        if (document.forms.Kaigi.kaigi[i - 1].checked) {
+            if (kaigiOn == true){
+                kchecked +=",";
+            }
+            kchecked += "'" + kaicheck.kaigi[i - 1].value + "'";
             kaigiOn = true;
+            
         }
 
-    }
-    if (kaicheck.kaigi[5 - 1].checked) {
-        kchecked += "'" + kaicheck.kaigi[5 - 1].value; + "'";
-        kaigiOn = true;
     }
 
     //検索語指定
