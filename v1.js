@@ -1,12 +1,12 @@
 function KokkaiAllChecked(){
-    var all = document.Kokkai.KokkaiAll.checked;
+    var all = document.forms.Kokkai.KokkaiAll.checked;
     for (var i=0; i<document.Kokkai.kokkai.length; i++){
-      document.Kokkai.kokkai[i].checked = all;
+      document.Kokkai.kokkai[i].checked = false;
     }
   }
 
   // 一つでもチェックを外すと「全て選択」のチェック外れる
-function KokkaiDisChecked(){
+function KokkaiAllDisChecked(){
     var checks = document.Kokkai.kokkai;
     var checksCount = 0;
     
@@ -16,7 +16,7 @@ function KokkaiDisChecked(){
         } else {
         checksCount += 1;
             if (checksCount == checks.length) {
-                document.Kokkai.KokkaiAll.checked = true;
+                document.Kokkai.KokkaiAll.checked = false;
             }
         }
     }
@@ -54,8 +54,14 @@ function generate(){
     
     //議会選択
     //国会
+    
+    var kokkaiAllOn = false;
     var kokkaiOn = false;
     var dietcheck = document.forms.Kokkai;
+    if (dietcheck.kokkalAll.checked) {
+        kokkaiAllOn = true;
+    }
+    
     var dchecked;
     if ((dietcheck.kokkai[0].checked) && (!dietcheck.kokkai[1].checked) && (!dietcheck.kokkai[2].checked)) {
         dchecked = "'01'";
@@ -186,7 +192,7 @@ function generate(){
     
     //文を合成
     //最初のところ
-    sqlout = "SELECT b.conf_id, b.conf_item_id, b.conf_dt<br>"
+    var sqlout = "SELECT b.conf_id, b.conf_item_id, b.conf_dt<br>"
     + "FROM t_conf as a inner join t_conf_item as b on a.conf_id=b.conf_id and a.conf_dt = b.conf_dt inner join t_talker as c on b.talker_id=c.talker_id and a.conf_id = c.conf_id<br>"
     + "WHERE a.conf_dt BETWEEN ";
 
@@ -194,6 +200,9 @@ function generate(){
     sqlout += "'" + start + "' and '" + end + "'";
 
     //議会選択
+    if (kokkaiAllOn) {
+        sqlout += " AND a.diet_tp != ''" 
+    }
     //国会
     if (kokkaiOn){
         sqlout += " AND a.diet_tp IN (" + dchecked + ") ";
