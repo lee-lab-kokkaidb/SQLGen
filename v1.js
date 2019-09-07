@@ -49,17 +49,18 @@ function ChihouDisChecked(){
 function generate(){
     
     //検索期間
-    var dateform = document.forms.date;
-    start = dateform.start.value;
-    end = dateform.end.value;
+    var start = document.forms.date.start.value;
+    var end = document.forms.date.end.value;
     
     //議会選択
     //国会
     var kdietform = document.forms.Kokkai;
-    var kokkaigikaimei
+    var kokkaigikaimei;
     //地方議会
     
     //会議種類
     
     //検索語指定
+    var sqlout = getElementById("sql");
+    sqlout.innerHTML =start + "-" + end
 }
